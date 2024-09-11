@@ -6,9 +6,9 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     date_published = models.DateTimeField()
-    status = models.CharField(max_length=50, default="Draft")  # BooleanField was incorrect here
+    status = models.CharField(max_length=50, default="Draft")
     date_created = models.DateTimeField(auto_now_add=True)
-    date_end = models.DateTimeField(null=True, blank=True)  # Optional fields should be handled.
+    date_end = models.DateTimeField(null=True, blank=True)
     views = models.IntegerField(default=0)
 
     def __str__(self):
