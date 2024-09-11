@@ -164,9 +164,20 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
-    ("en", _("English")),
-    # Add additional languages here
+    ('en', _('English')),
+    ('fr', _('French')),
 ]
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'en', 'fallbacks': ['fr', 'es'], 'hide_untranslated': False},
+        {'code': 'fr', 'fallbacks': ['en'], 'hide_untranslated': False},
+    ),
+    'default': {
+        'fallback': 'en',
+        'hide_untranslated': False,
+    }
+}
 
 TIME_ZONE = 'UTC'
 
@@ -234,14 +245,3 @@ INTERNAL_IPS = [
 MEDIA_URL = "media/"
 MEDIA_ROOT = str(BASE_DIR.parent / "media")
 
-PARLER_LANGUAGES = {
-	    None: (
-        {'code': 'en',},
-        {'code': 'en-us',},
-        {'code': 'fr',},
-    ),
-    'default': {
-        'fallbacks': ['en'],
-        'hide_untranslated': False,
-    }
-}
