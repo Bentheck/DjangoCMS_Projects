@@ -4,7 +4,13 @@ from django.utils import timezone
 
 class Post(TranslatableModel):
     id = models.AutoField(primary_key=True)
-    date_published = models.DateTimeField(null=True, blank=True)
+    date_published = models.DateTimeField(null=True, blank=True, editable=False)
+
+    translations = TranslatedFields(
+        title=models.CharField(max_length=255),
+        content=models.TextField()
+    )
+
     status = models.CharField(
         max_length=50,
         default="Draft",
@@ -15,13 +21,8 @@ class Post(TranslatableModel):
         ]
     )
     date_created = models.DateTimeField(auto_now_add=True)
-    date_end = models.DateTimeField(null=True, blank=True)
-    views = models.IntegerField(default=0)
-
-    translations = TranslatedFields(
-        title=models.CharField(max_length=255),
-        content=models.TextField()
-    )
+    date_end = models.DateTimeField(null=True, blank=True, verbose_name="Archival Date (Leave empty for no auto-archiving)")
+    views = models.IntegerField(default=0, editable=False)
 
     def save(self, *args, **kwargs):
         if self.status == "Published" and not self.date_published:
