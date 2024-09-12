@@ -33,6 +33,8 @@ class Post(TranslatableModel):
     def __str__(self):
         return self.title
 
+
+
 class Category(TranslatableModel):
     id = models.AutoField(primary_key=True)
 
@@ -43,6 +45,8 @@ class Category(TranslatableModel):
 
     def __str__(self):
         return self.name
+
+
 
 class PostCategory(models.Model):
     id = models.AutoField(primary_key=True)
