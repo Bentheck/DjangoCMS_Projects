@@ -94,6 +94,7 @@ MIDDLEWARE = [
     'cms.middleware.toolbar.ToolbarMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
+    'cms.middleware.utils.ApphookReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoCms.urls'
@@ -212,7 +213,7 @@ SITE_ID = 1
 # https://docs.django-cms.org/en/release-4.1.x/reference/configuration.html#cms-templates
 
 CMS_TEMPLATES = (
-    ("base.html", _("Standard")),
+    ("base.html", _("Base Template")),
 )
 
 # Enable permissions
@@ -246,3 +247,4 @@ INTERNAL_IPS = [
 MEDIA_URL = "media/"
 MEDIA_ROOT = str(BASE_DIR.parent / "media")
 
+DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True

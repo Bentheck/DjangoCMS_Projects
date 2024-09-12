@@ -25,10 +25,9 @@ urlpatterns = i18n_patterns(
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('admin/', admin.site.urls),
     path('filer/', include('filer.urls')),
-    path('blog', include('blog.urls')),
-    path('', include('cms.urls')),
+    path('blog/', include('blog.urls')),  # URL handled by
+    path('', include('cms.urls')),        # Root URL handled by Django CMS
 )
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
