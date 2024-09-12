@@ -1,7 +1,9 @@
 from django.urls import path
-from . import views
+from .views import blog_detail, blog_list
+
+app_name = 'blog'  # This is necessary if using namespaces
 
 urlpatterns = [
-    path('', views.blog_list, name='blog_list'),
-    path('<int:post_id>/', views.blog_detail, name='blog_detail'),
+    path('', blog_list, name='blog_list'),
+    path('post/<int:id>/', blog_detail, name='blog_detail'),
 ]

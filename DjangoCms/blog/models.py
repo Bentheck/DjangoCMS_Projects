@@ -30,23 +30,27 @@ class Post(TranslatableModel):
         
         super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.title
+    def get(self, request, *args, **kwargs):
+        post = self.get_object()
+        if post.status == "Published":
+            post.views += 1
+            post.save(update_fields=['views'])
+        return super().get(request, *args, **kwargs)
 
+    def __str__(self):
+        return self.safe_translation_getter('title', any_language=True)
 
 
 class Category(TranslatableModel):
     id = models.AutoField(primary_key=True)
-
+    
     translations = TranslatedFields(
-        name=models.CharField(max_length=255),
+        name=models.CharField(max_length=255, blank=False, null=False),
         description=models.TextField()
     )
 
     def __str__(self):
-        return self.name
-
-
+        return self.safe_translation_getter('name', any_language=True)
 
 class PostCategory(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,4 +58,4 @@ class PostCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.post.title} - {self.category.name}"
+        return f"{self.post.safe_translation_getter('title', any_language=True)} - {self.category.safe_translation_getter('name', any_language=True)}"

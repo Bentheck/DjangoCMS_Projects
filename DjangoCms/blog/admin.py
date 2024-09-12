@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Post, Category
 from parler.admin import TranslatableAdmin
+from .models import Post, Category, PostCategory
 
 @admin.register(Post)
 class PostAdmin(TranslatableAdmin):
@@ -12,8 +12,11 @@ class PostAdmin(TranslatableAdmin):
     search_fields = ('translations__title',) 
     list_filter = ('status', 'date_published')
 
-# Register the Category model
 @admin.register(Category)
 class CategoryAdmin(TranslatableAdmin):
-    list_display = ('name',)
-    search_fields = ('translations__name',)
+    list_display = ['name', 'description']
+    search_fields = ['name', 'description']
+
+@admin.register(PostCategory)
+class PostCategoryAdmin(admin.ModelAdmin):
+    list_display = ['post', 'category']
