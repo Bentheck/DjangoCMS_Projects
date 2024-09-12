@@ -1,0 +1,4 @@
+{% extends "base.html" %} {% block content %}
+<h1>This post was archived as of {{ post.date_end }}</h1>
+<a href="{% url 'blog:blog_list' %}">Go back to the list</a>
+{% endblock %}

@@ -248,3 +248,19 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = str(BASE_DIR.parent / "media")
 
 DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+#         },
+#     },
+# } 

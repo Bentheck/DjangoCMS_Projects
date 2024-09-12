@@ -8,7 +8,7 @@ class PostAdmin(TranslatableAdmin):
         (None, {'fields': ('title', 'content')}),
         ('Additional Information', {'fields': ('status', 'date_end')}),
     )
-    list_display = ('title', 'date_published', 'status', 'views')
+    list_display = ('title', 'date_published', 'date_end', 'status', 'views')
     search_fields = ('translations__title',) 
     list_filter = ('status', 'date_published')
 

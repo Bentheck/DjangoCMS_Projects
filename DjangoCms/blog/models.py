@@ -2,6 +2,10 @@ from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from django.utils import timezone
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 class Post(TranslatableModel):
     id = models.AutoField(primary_key=True)
     date_published = models.DateTimeField(null=True, blank=True, editable=False)
@@ -21,7 +25,7 @@ class Post(TranslatableModel):
         ]
     )
     date_created = models.DateTimeField(auto_now_add=True)
-    date_end = models.DateTimeField(null=True, blank=True, verbose_name="Archival Date (Leave empty for no auto-archiving)")
+    date_end = models.DateTimeField(null=True, blank=True, verbose_name="Archival Date")
     views = models.IntegerField(default=0, editable=False)
 
     def save(self, *args, **kwargs):
