@@ -6,6 +6,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 class Post(TranslatableModel):
     id = models.AutoField(primary_key=True)
     date_published = models.DateTimeField(null=True, blank=True, editable=False)
@@ -28,18 +29,13 @@ class Post(TranslatableModel):
     date_end = models.DateTimeField(null=True, blank=True, verbose_name="Archival Date")
     views = models.IntegerField(default=0, editable=False)
 
+    # Override the save method to set the date_published field
     def save(self, *args, **kwargs):
         if self.status == "Published" and not self.date_published:
             self.date_published = timezone.now()
         
         super().save(*args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
-        post = self.get_object()
-        if post.status == "Published":
-            post.views += 1
-            post.save(update_fields=['views'])
-        return super().get(request, *args, **kwargs)
 
     def __str__(self):
         return self.safe_translation_getter('title', any_language=True)
