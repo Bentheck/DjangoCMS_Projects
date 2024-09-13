@@ -57,9 +57,7 @@ class PostCategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
-        # Ensures that the combination of post and category is unique
         unique_together = ('post', 'category')
-        # Use constraints for SQLite to ensure uniqueness
         constraints = [
             models.UniqueConstraint(fields=['post', 'category'], name='unique_post_category')
         ]
