@@ -53,7 +53,6 @@ class Category(TranslatableModel):
         return self.safe_translation_getter('name', any_language=True)
 
 class PostCategory(models.Model):
-    id = models.AutoField(primary_key=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
