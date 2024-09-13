@@ -263,4 +263,4 @@ DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
 #             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
 #         },
 #     },
-# } 
+# }

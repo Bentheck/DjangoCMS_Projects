@@ -2,6 +2,7 @@ from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from django.utils import timezone
 
+
 import logging
 
 logger = logging.getLogger(__name__)

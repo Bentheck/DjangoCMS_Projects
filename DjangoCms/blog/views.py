@@ -4,6 +4,7 @@ from django.utils import timezone
 from .forms import CombinedPostCategoryForm
 from django.utils.translation import get_language
 
+
 def blog_detail(request, id):
     post = get_object_or_404(Post, pk=id)
     categories = Category.objects.filter(postcategory__post=post)

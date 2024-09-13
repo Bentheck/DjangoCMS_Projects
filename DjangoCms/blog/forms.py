@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.utils.translation import get_language
 from parler.forms import TranslatableModelForm
 from .models import Post, Category, PostCategory
+from tinymce.widgets import TinyMCE
 
 class CombinedPostCategoryForm(TranslatableModelForm):
     status = forms.ChoiceField(

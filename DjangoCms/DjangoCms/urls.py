@@ -26,7 +26,7 @@ urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('filer/', include('filer.urls')),
     path('', include('cms.urls')),        # Root URL handled by Django CMS
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
