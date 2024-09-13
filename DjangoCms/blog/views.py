@@ -43,11 +43,27 @@ def create_post(request):
     if request.method == "POST":
         form = CombinedPostCategoryForm(request.POST)
         if form.is_valid():
-            # Save the new post and get the instance
+            # Save the new post but don't commit to the database yet
             new_post = form.save(commit=False)
-            # Set the language of the post based on the current request language
-            new_post.set_current_language(get_language())
+            new_post.date_published = None  # Leave this to be set by the save method
             new_post.save()
+            
+            # Handle translations
+            lang = get_language()
+            title = form.cleaned_data.get('title')
+            content = form.cleaned_data.get('content')
+            
+            # Save the translation for the current language
+            new_post.set_current_language(lang)
+            new_post.title = title
+            new_post.content = content
+            new_post.save()
+
+            # Save the categories
+            categories = form.cleaned_data.get('categories')
+            for category in categories:
+                PostCategory.objects.create(post=new_post, category=category)
+
             # Redirect to the detail page of the newly created post
             return redirect('blog:blog_detail', id=new_post.id)
     else:
