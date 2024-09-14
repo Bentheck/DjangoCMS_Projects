@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Blog Posts</h1>
+<a href="{% url 'blog:create_post' %}">Create a new post</a>
 <ul>
 {% for post in posts %}
     <li>
