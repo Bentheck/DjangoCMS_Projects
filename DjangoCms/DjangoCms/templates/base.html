@@ -17,6 +17,7 @@
         {% endblock canonical_url %}
         {% block fb_meta %}{% endblock fb_meta %}
         <title>{% block title %}{% page_attribute "page_title" %}{% endblock %}</title>
+
         {% block base_css %}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"/>
         {% endblock %}
@@ -63,7 +64,8 @@
         </footer>
         {% block base_js %}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-            <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'djangocms_text_ckeditor/ckeditor/ckeditor.js' %}"></script>
+            <script src="{% static 'js/ckeditor_csrf.js' %}"></script>
         {% endblock %}
         {% render_block 'js' %}
         {% block end_js %}

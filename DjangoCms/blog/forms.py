@@ -1,16 +1,15 @@
 from django import forms
-from django.utils import timezone
 from django.utils.translation import get_language
 from parler.forms import TranslatableModelForm
 from .models import Post, Category, PostCategory
-from tinymce.widgets import TinyMCE
+from djangocms_text_ckeditor.widgets import TextEditorWidget
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 class CombinedPostCategoryForm(TranslatableModelForm):
     status = forms.ChoiceField(
         choices=Post._meta.get_field('status').choices,
-        widget=forms.Select(attrs={
-            'class': 'form-control'
-        })
+        widget=forms.Select(attrs={'class': 'form-control'})
     )
     date_end = forms.DateTimeField(
         required=False,
@@ -22,15 +21,12 @@ class CombinedPostCategoryForm(TranslatableModelForm):
     )
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
-        widget=forms.SelectMultiple(attrs={
-            'class': 'form-control'
-        })
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
     )
 
     class Meta:
         model = Post
-        fields = ['status', 'date_end', 'categories']
-        # Title and content will be managed separately for translations
+        fields = ['title', 'content', 'status', 'date_end', 'categories']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -43,10 +39,10 @@ class CombinedPostCategoryForm(TranslatableModelForm):
             })
         )
         self.fields['content'] = forms.CharField(
-            widget=forms.Textarea(attrs={
+            widget=TextEditorWidget(attrs={
                 'class': 'form-control',
                 'placeholder': 'Enter post content',
-                'rows': 5
+                'rows': 5,
             })
         )
 
