@@ -1,7 +1,7 @@
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from django.utils import timezone
-from djangocms_text_ckeditor.fields import HTMLField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Post(TranslatableModel):
     id = models.AutoField(primary_key=True)
@@ -9,7 +9,7 @@ class Post(TranslatableModel):
 
     translations = TranslatedFields(
         title=models.CharField(max_length=255),
-        content=HTMLField()
+        content=RichTextUploadingField()
     )
 
     status = models.CharField(

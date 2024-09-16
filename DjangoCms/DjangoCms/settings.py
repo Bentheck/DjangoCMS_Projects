@@ -16,6 +16,7 @@ https://docs.django-cms.org/en/release-4.1.x/reference/configuration.html
 import os
 from pathlib import Path
 
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -228,6 +229,12 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Enable inline editing with djangocms-text-ckeditor
 # https://github.com/django-cms/djangocms-text-ckeditor#inline-editing-feature
 
+lang_code = get_language()
+
+CKEDITOR_UPLOAD_PATH =  'uploads/'
+
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+
 CKEDITOR_SETTINGS = {
     'language': '{{ language }}',
     'toolbar_HTMLField': [
@@ -253,6 +260,12 @@ CKEDITOR_SETTINGS = {
     'skin': 'moono-lisa',
     'toolbarCanCollapse': True,
     'resize_enabled': True,
+    'extraPlugins': 'uploadimage,clipboard',  # Important to include the uploadimage plugin
+    'filebrowserUploadUrl': '/' + lang_code + '/ckeditor/upload/',  # Upload endpoint
+    'filebrowserUploadMethod': 'form',  # This ensures CKEditor uses POST for uploads
+    'filebrowserBrowseUrl': '/' + lang_code +'/ckeditor/browse/',
+    'imageUploadUrl': '/' + lang_code + '/ckeditor/upload/',
+    'clipboard_handleImages': False,
 }
 
 TEXT_INLINE_EDITING = True
@@ -260,9 +273,11 @@ TEXT_INLINE_EDITING = True
 # Add project-wide static files directory
 # https://docs.djangoproject.com/en/5.0/ref/settings/#staticfiles-dirs
 
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "DjangoCms" / "static",
+    os.path.join(BASE_DIR, 'static'),
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -271,10 +286,8 @@ INTERNAL_IPS = [
 # Add project-wide static files directory
 # https://docs.djangoproject.com/en/5.0/ref/settings/#media-root
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
 

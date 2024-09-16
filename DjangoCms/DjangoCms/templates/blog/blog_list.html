@@ -3,6 +3,11 @@
 {% block content %}
 <h1>Blog Posts</h1>
 <ul>
+
+    <form action="/ckeditor/upload/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="upload" />
+        <button type="submit">Upload</button>
+    </form>
 {% for post in posts %}
     <li>
         <a href="{% url 'blog:blog_detail' post.id %}">{{ post.title }}</a>
