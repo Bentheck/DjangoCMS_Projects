@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <h1>Title: {{ post.title }}</h1>
-<p>Content: {{ post.content }}</p>
+<p>Content: {{ post.content|safe }}</p>
 <p>Date Published: {{ post.date_published }}</p>
 <p>Views: {{ post.views }}</p>
 <div>

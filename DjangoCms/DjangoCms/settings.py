@@ -172,7 +172,7 @@ LANGUAGES = [
 
 PARLER_LANGUAGES = {
     None: (
-        {'code': 'en', 'fallbacks': ['fr', 'es'], 'hide_untranslated': False},
+        {'code': 'en', 'fallbacks': ['fr'], 'hide_untranslated': False},
         {'code': 'fr', 'fallbacks': ['en'], 'hide_untranslated': False},
     ),
     'default': {
@@ -228,6 +228,33 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Enable inline editing with djangocms-text-ckeditor
 # https://github.com/django-cms/djangocms-text-ckeditor#inline-editing-feature
 
+CKEDITOR_SETTINGS = {
+    'language': '{{ language }}',
+    'toolbar_HTMLField': [
+        [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+        ['Undo', 'Redo'],
+        ['cmsplugins', 'cmswidget'],
+        ['Find', 'Replace'],
+        ['SelectAll'], 
+        ['Scayt'],
+        ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'HiddenField'],
+        ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'],
+        '/',
+        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote'],
+        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        ['Link', 'Unlink', 'Anchor'],
+        ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'PageBreak'],
+        '/',
+        ['Styles', 'Format', 'Font', 'FontSize'],
+        ['TextColor', 'BGColor'],
+        ['Maximize', 'ShowBlocks', '-', 'About'],
+    ],
+    'skin': 'moono-lisa',
+    'toolbarCanCollapse': True,
+    'resize_enabled': True,
+}
+
 TEXT_INLINE_EDITING = True
 
 # Add project-wide static files directory
@@ -244,8 +271,10 @@ INTERNAL_IPS = [
 # Add project-wide static files directory
 # https://docs.djangoproject.com/en/5.0/ref/settings/#media-root
 
-MEDIA_URL = "media/"
-MEDIA_ROOT = str(BASE_DIR.parent / "media")
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DJANGOCMS_VERSIONING_ALLOW_DELETING_VERSIONS = True
 

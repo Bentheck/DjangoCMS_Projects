@@ -1,12 +1,7 @@
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
 from django.utils import timezone
-
-
-import logging
-
-logger = logging.getLogger(__name__)
-
+from djangocms_text_ckeditor.fields import HTMLField
 
 class Post(TranslatableModel):
     id = models.AutoField(primary_key=True)
@@ -14,7 +9,7 @@ class Post(TranslatableModel):
 
     translations = TranslatedFields(
         title=models.CharField(max_length=255),
-        content=models.TextField()
+        content=HTMLField()
     )
 
     status = models.CharField(
@@ -30,17 +25,14 @@ class Post(TranslatableModel):
     date_end = models.DateTimeField(null=True, blank=True, verbose_name="Archival Date")
     views = models.IntegerField(default=0, editable=False)
 
-    # Override the save method to set the date_published field
     def save(self, *args, **kwargs):
         if self.status == "Published" and not self.date_published:
             self.date_published = timezone.now()
         
         super().save(*args, **kwargs)
 
-
     def __str__(self):
         return self.safe_translation_getter('title', any_language=True)
-
 
 class Category(TranslatableModel):
     id = models.AutoField(primary_key=True)
